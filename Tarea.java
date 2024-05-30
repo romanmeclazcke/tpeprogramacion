@@ -1,4 +1,4 @@
-package utils;
+
 public class Tarea {
     private String id_tarea;
     private String nombre_tarea;
