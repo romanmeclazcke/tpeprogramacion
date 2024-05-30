@@ -10,7 +10,7 @@ public class Main {
 		ServicioMejorDistribucion serviciomejor= new ServicioMejorDistribucion(servicios.getTareas(), servicios.getProcesadores());
 
 		
-		System.out.println(serviciomejor.getBestDistribution(2000));
+		System.out.println(serviciomejor.getBestDistribution(300));
 		
 	}
-}
+} 
