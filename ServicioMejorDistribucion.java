@@ -15,52 +15,52 @@ public class ServicioMejorDistribucion {
         this.procesadores = procesadores;
         this.tiempoMejor=Integer.MAX_VALUE;
         this.tiempoActual=0;
+        this.mejor= new  Hashtable<Procesadores, ArrayList<Tarea>>();
     }
 
     public Hashtable<Procesadores, ArrayList<Tarea>> getBestDistribution(int x){
         Hashtable<Procesadores, ArrayList<Tarea>> caminoActual = new Hashtable<>();
         this.limiteTiempoRefrigerados=x;
         getBestDistribution(caminoActual, 0);
-        System.out.println("tiempo final" + this.tiempoMejor);
+        System.out.println(this.tiempoMejor);
         return this.mejor;
     }
 
 
 
-    private void getBestDistribution(Hashtable<Procesadores, ArrayList<Tarea>> caminoActual, int indexTarea){
-        if (indexTarea==this.tareas.size()) {//no tengo mas tareas por asignar
-            if (this.tiempoActual<this.tiempoMejor) {//comparo con la mejor solucion
-                this.mejor=this.getCopiaMejor(caminoActual);
+    private void getBestDistribution(Hashtable<Procesadores, ArrayList<Tarea>> caminoActual, int indexTarea) {
+        if (indexTarea == this.tareas.size()) { //si asigne todas las tareas
+            if (this.tiempoActual < this.tiempoMejor) { //pregunto si el tiempo del camino actual mejora mi solucion
+                this.mejor = getCopiaMejor(caminoActual); //si cumple creo una COPIA para no propagar modificaciones
                 this.tiempoMejor = this.tiempoActual;
             }
-        }else{
-            Tarea t= this.tareas.get(indexTarea);
-            for (Procesadores  procesador : this.procesadores) {
-                if (caminoActual.get(procesador)==null) {
+        } else {
+            Tarea t = this.tareas.get(indexTarea);
+            for (Procesadores procesador : this.procesadores) {
+                if (caminoActual.get(procesador) == null) {
                     caminoActual.put(procesador, new ArrayList<Tarea>());
                 }
-                if (sePuede(procesador,t, caminoActual)) {    //si la tarea se puede asignar al procesador
-                    if (caminoActual.containsKey(procesador)) {
-                        caminoActual.get(procesador).add(t); //asigno la tarea al procesador
-                        procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion()+t.getTiempo_ejecucion()); //actualizo el tiempo de ejecucion del procesador
-                        if (procesador.getTiempo_ejecucion()> this.tiempoActual) {
-                            System.out.println(procesador.getTiempo_ejecucion());
-                            System.out.println(this.tiempoActual + "actual");
-                            this.tiempoActual=procesador.getTiempo_ejecucion();
+    
+                if (sePuede(procesador, t, caminoActual)) { //si puedo asignar la tarea al procesador
+                    caminoActual.get(procesador).add(t); //asigno
+                    procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion() + t.getTiempo_ejecucion()); //aumento el tiempo del procesador
+                    int tiempoPrevio = this.tiempoActual; //guardo el tiempo actual antes de la recursion
+    
+                    if (procesador.getTiempo_ejecucion() > this.tiempoActual) { //pregunto si el tiempio del procesador empeora mi solucion actual (llevo el t del peor procesador)
+                        this.tiempoActual = procesador.getTiempo_ejecucion();
                     }
-                }
-                getBestDistribution(caminoActual,indexTarea+1); //llamo recursivamente actualizando el indice de la tarea
-                
-                if (caminoActual.get(procesador)!=null) {//si la lista de tareas del procesador tiene tareas
-                    caminoActual.get(procesador).remove(t);  //elimino la ultima
-                    procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion()-t.getTiempo_ejecucion());//desactualizo el tiempo de ejecucion del procesador
-                    this.tiempoActual = tiempoActual - t.getTiempo_ejecucion();
+    
+                    getBestDistribution(caminoActual, indexTarea + 1); //recusion acutalizando la tarea
+
+                    caminoActual.get(procesador).remove(t); //reviero los cambios al volver de la recusion
+                    procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion() - t.getTiempo_ejecucion());
+                    this.tiempoActual = tiempoPrevio; // restauro el tiempo actual luego de volver del llamado recursivo
                 }
             }
         }
     }
+    
         
-    }
 
     public boolean sePuede(Procesadores p, Tarea t, Hashtable<Procesadores, ArrayList<Tarea>> caminoActual){ //funcion que retorna la posibilidad de insetar una tarea en un procesador dadas ciertas condiciens
             ArrayList<Tarea> tareasProcesador = caminoActual.get(p);  

@@ -96,7 +96,7 @@ public class Servicios {
 			Integer tiempo = Integer.parseInt(line[2].trim());
 			Boolean critica = Boolean.parseBoolean(line[3].trim());
 			Integer prioridad = Integer.parseInt(line[4].trim());
-
+			
 			Tarea t = new Tarea(id, nombre, tiempo, critica, prioridad);
 
 			if (critica) {
