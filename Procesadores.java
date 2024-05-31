@@ -3,7 +3,6 @@ class Procesadores {
     private String codigo_procesador;
     private boolean esta_regriferado;
     private int año_funcionamiento;
-
     private int tiempo_ejecucion;
 
     public Procesadores(String id_procesador, String codigo_procesador, boolean esta_regriferado, int año_funcionamiento){
@@ -53,11 +52,9 @@ class Procesadores {
         this.año_funcionamiento = año_funcionamiento;
     }
 
-
-    // @Override
-    // public
+    @Override
+    public String toString(){
+        return  this.id_procesador;
+    }
     
-    
-
-
 }

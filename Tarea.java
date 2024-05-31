@@ -53,4 +53,10 @@ public class Tarea {
     public void setPrioridad(int nivel_prioridad) {
         this.nivel_prioridad = nivel_prioridad;
     }
+
+    
+    @Override
+    public String toString(){
+        return  this.id_tarea;
+    }
 }
