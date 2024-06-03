@@ -59,9 +59,7 @@ public class ServicioMejorDistribucionGreedy {
 
             int contadortiempo = 0;
             if (p.getEsta_regriferado()) {
-                for (Tarea tarea : tareasProcesador) {
-                    contadortiempo += tarea.getTiempo_ejecucion();
-                }
+                contador=p.getTiempo_ejecucion();
             }
 
             if (contadortiempo + t.getTiempo_ejecucion() < this.limiteTiempoRefrigerados && contador < 2) {
