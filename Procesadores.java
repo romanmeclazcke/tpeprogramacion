@@ -56,5 +56,10 @@ class Procesadores {
     public String toString(){
         return  this.id_procesador;
     }
+
+    @Override
+    public int hashCode(){
+        return this.id_procesador.hashCode();
+    }
     
 }
