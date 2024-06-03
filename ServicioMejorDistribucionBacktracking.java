@@ -44,7 +44,6 @@ public class ServicioMejorDistribucionBacktracking {
                 if (caminoActual.get(procesador) == null) {
                     caminoActual.put(procesador, new ArrayList<Tarea>());
                 }
-    
                 if (sePuede(procesador, t, caminoActual)) { //si puedo asignar la tarea al procesador
                     caminoActual.get(procesador).add(t); //asigno
                     procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion() + t.getTiempo_ejecucion()); //aumento el tiempo del procesador
@@ -67,25 +66,27 @@ public class ServicioMejorDistribucionBacktracking {
         
 
     public boolean sePuede(Procesadores p, Tarea t, Hashtable<Procesadores, ArrayList<Tarea>> caminoActual){ //funcion que retorna la posibilidad de insetar una tarea en un procesador dadas ciertas condiciens
-            ArrayList<Tarea> tareasProcesador = caminoActual.get(p);  
-            int contador=0;
-            for (Tarea tarea : tareasProcesador) {
-                if (tarea.getEs_critica()) {
-                    contador++;
+        ArrayList<Tarea> tareasProcesador = caminoActual.get(p);  
+        int contador=0;
+        for (Tarea tarea : tareasProcesador) {
+            if (tarea.getEs_critica()) {
+                contador++;
+            }
+        }
+        if(contador < 2){
+            int contadortiempo=0;
+            if (!p.getEsta_regriferado()) {
+                contadortiempo= p.getTiempo_ejecucion();                    
+                if(contadortiempo+t.getTiempo_ejecucion()<this.limiteTiempoRefrigerados &&contador<=2){
+                    return true;
+                }else{
+                    return false;
                 }
             }
-
-            int contadortiempo=0;
-            if (p.getEsta_regriferado()) {
-                contadortiempo= p.getTiempo_ejecucion();
-            }
-
-            if(contadortiempo+t.getTiempo_ejecucion()<this.limiteTiempoRefrigerados &&contador<2){
-                return true;
-            }else{
-                return false;
-            }
-    }
+            return true;
+        }
+        return false;
+}
 
 
     private Hashtable<Procesadores, ArrayList<Tarea>> getCopiaMejor(Hashtable<Procesadores, ArrayList<Tarea>> camino) {
