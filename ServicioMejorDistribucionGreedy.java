@@ -86,7 +86,6 @@ public class ServicioMejorDistribucionGreedy {
         Hashtable<Procesadores, ArrayList<Tarea>> copiaMejor = new Hashtable<>();
         for (Procesadores p : camino.keySet()) {
             ArrayList<Tarea> copiaTareas = new ArrayList<>();
-            ;
             for (Tarea t : camino.get(p)) {
                 copiaTareas.add(t);
             }

@@ -8,7 +8,7 @@ public class Main {
 
 		ServicioMejorDistribucionGreedy dist= new ServicioMejorDistribucionGreedy(servicios.getTareas(), servicios.getProcesadores());
 
-		System.out.println(dist.getBestDistribution(200));
+		System.out.println(serviciomejor.getBestDistribution(200));
 		
 	}
 } 
