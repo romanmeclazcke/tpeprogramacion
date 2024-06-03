@@ -38,8 +38,9 @@ public class ServicioMejorDistribucionGreedy {
                 if (p.getTiempo_ejecucion() > this.tiempoActual) {
                     this.tiempoActual = p.getTiempo_ejecucion();
                 }
-            } else {
+            }else{
                 caminoActual.clear();
+                return caminoActual;
             }
         }
         return caminoActual;
@@ -58,14 +59,14 @@ public class ServicioMejorDistribucionGreedy {
             }
 
             int contadortiempo = 0;
-            if (p.getEsta_regriferado()) {
-                contador=p.getTiempo_ejecucion();
-            }
-
-            if (contadortiempo + t.getTiempo_ejecucion() < this.limiteTiempoRefrigerados && contador < 2) {
+            if (!p.getEsta_regriferado()) {
+                    contador=p.getTiempo_ejecucion();
+                    if (contadortiempo + t.getTiempo_ejecucion() < this.limiteTiempoRefrigerados && contador < 2) {
+                        aux.add(p);
+                    }
+            }else if(contador<2){
                 aux.add(p);
             }
-
         }
 
         int tiempoMinimo = Integer.MAX_VALUE;
@@ -76,8 +77,11 @@ public class ServicioMejorDistribucionGreedy {
                 tiempoMinimo = aux.get(i).getTiempo_ejecucion();
             }
         }
+        if(!aux.isEmpty()){
+            return aux.get(indiceProcesadorMinimo);
+        }
+        return null;
 
-        return aux.get(indiceProcesadorMinimo);
     }
 
     private Hashtable<Procesadores, ArrayList<Tarea>> getCopiaMejor(Hashtable<Procesadores, ArrayList<Tarea>> camino) {
