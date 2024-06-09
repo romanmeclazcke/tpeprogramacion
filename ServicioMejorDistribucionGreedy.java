@@ -16,16 +16,17 @@ public class ServicioMejorDistribucionGreedy {
         this.cantidadEstados = 0;
     }
 
-    public Hashtable<Procesadores, ArrayList<Tarea>> getBestDistribution(int x) {
+    public Resultado getBestDistribution(int x) {
         Hashtable<Procesadores, ArrayList<Tarea>> caminoActual = new Hashtable<>();
         for (Procesadores procesador : this.procesadores) {
             caminoActual.put(procesador, new ArrayList<>());
         }
+
         this.limiteTiempoRefrigerados = x;
         Hashtable<Procesadores, ArrayList<Tarea>> result= this.getCopiaMejor(getBestDistribution(caminoActual, this.tareas));
-        System.out.println(tiempoActual);
-        System.out.println(cantidadEstados* this.procesadores.size());
-        return result;
+
+        return new Resultado(result, this.tiempoActual, this.cantidadEstados*this.procesadores.size());
+        
     }
 
     private Hashtable<Procesadores, ArrayList<Tarea>> getBestDistribution(Hashtable<Procesadores, ArrayList<Tarea>> caminoActual, ArrayList<Tarea> tareas) {

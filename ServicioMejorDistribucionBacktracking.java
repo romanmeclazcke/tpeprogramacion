@@ -20,13 +20,17 @@ public class ServicioMejorDistribucionBacktracking {
         this.cantidadEstados=-1;
     }
 
-    public Hashtable<Procesadores, ArrayList<Tarea>> getBestDistribution(int x){
+    public Resultado getBestDistribution(int x){
         Hashtable<Procesadores, ArrayList<Tarea>> caminoActual = new Hashtable<>();
         this.limiteTiempoRefrigerados=x;
+        for (Procesadores pr : this.procesadores) { //creo estado inicial del procesador
+            if (caminoActual.get(pr)==null) {
+                caminoActual.put(pr, new ArrayList<>());
+            }
+        }
         getBestDistribution(caminoActual, 0);
-        System.out.println(this.tiempoMejor);
-        System.out.println(this.cantidadEstados);
-        return this.mejor;
+
+        return new Resultado(this.mejor, this.tiempoMejor, this.cantidadEstados);
     }
 
 
@@ -41,9 +45,6 @@ public class ServicioMejorDistribucionBacktracking {
         } else {
             Tarea t = this.tareas.get(indexTarea);
             for (Procesadores procesador : this.procesadores) {
-                if (caminoActual.get(procesador) == null) {
-                    caminoActual.put(procesador, new ArrayList<Tarea>());
-                }
                 if (sePuede(procesador, t, caminoActual)) { //si puedo asignar la tarea al procesador
                     caminoActual.get(procesador).add(t); //asigno
                     procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion() + t.getTiempo_ejecucion()); //aumento el tiempo del procesador
@@ -53,9 +54,9 @@ public class ServicioMejorDistribucionBacktracking {
                         this.tiempoActual = procesador.getTiempo_ejecucion();
                     }
 
-                    getBestDistribution(caminoActual, indexTarea + 1); //recusion acutalizando la tarea
+                    getBestDistribution(caminoActual, indexTarea + 1); //recusion acutalizando el indice de la tarea
 
-                    caminoActual.get(procesador).remove(t); //reviero los cambios al volver de la recusion
+                    caminoActual.get(procesador).remove(t); //revierto los cambios al volver de la recusion
                     procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion() - t.getTiempo_ejecucion()); //resto el tiempo de la tarea que habia agregado al procesador
                     this.tiempoActual = tiempoPrevio; // restauro el tiempo actual luego de volver del llamado recursivo
                 }
