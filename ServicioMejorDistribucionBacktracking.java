@@ -73,7 +73,9 @@ public class ServicioMejorDistribucionBacktracking {
     }
     
         
-
+// este método fue pensado para tomar aquellos estados del backtracking que sean solución, es decir que cumplan los criterios
+// pactados sobre el tiempo máximo que pueden soportar los procesadores no refrigerados y cuáles están en condiciones de aceptar
+// una tarea crítica
     public boolean sePuede(Procesadores p, Tarea t, Hashtable<Procesadores, ArrayList<Tarea>> caminoActual){ //funcion que retorna la posibilidad de insetar una tarea en un procesador dadas ciertas condiciens
         ArrayList<Tarea> tareasProcesador = caminoActual.get(p);  
         int contador=0;
@@ -97,7 +99,8 @@ public class ServicioMejorDistribucionBacktracking {
         return false;
 }
 
-
+// finalmente, con este método lo que hicimos fue copiar nuestra mejor solución en un nuevo hashtable para poder retornarlo
+// de manera segura garantizando el encapsulamiento.
     private Hashtable<Procesadores, ArrayList<Tarea>> getCopiaMejor(Hashtable<Procesadores, ArrayList<Tarea>> camino) {
         Hashtable<Procesadores, ArrayList<Tarea>> copiaMejor = new Hashtable<>();
         for (Procesadores p : camino.keySet()) {
