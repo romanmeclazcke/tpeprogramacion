@@ -20,6 +20,9 @@ public class ServicioMejorDistribucionBacktracking {
         this.cantidadEstados=-1;
     }
 
+    // en el método público lo que hicimos fue, dado un x el cuál es el límite que pueden soportar los procesadores no refrigerados
+    // asignarlo a nuestro atributo de la clase y por cada procesador de nuestro arreglo de procesadores agregar cada uno al camino
+    //actual para luego llamar al método que buscará la mejor distribución de tareas en procesadores
     public Resultado getBestDistribution(int x){
         Hashtable<Procesadores, ArrayList<Tarea>> caminoActual = new Hashtable<>();
         this.limiteTiempoRefrigerados=x;
@@ -34,7 +37,12 @@ public class ServicioMejorDistribucionBacktracking {
     }
 
 
-
+//para usar la estrategia de backtracking lo que hicimos fue crear un hashtable de procesadores, por el cual a cada procesador
+// podían agregarsele tareas. Este hashtable llamado camino actual va guardando por cada procesador existente todas las posibles
+//opciones de distribución de tareas (como puede observarse a partir del else de este método) y cuando llega a un caso base,
+// es decir que no hay más tareas para asignar, son comparados los tiempos máximos de este camino con el tiempo máximo de otro
+// hashtable al cual definimos como el mejor (el que menor tiempo toma a su procesador con tiempo más alto en procesar las tareas)
+// y el cual irá cambiando si el camino actual posee un mejor tiempo
     private void getBestDistribution(Hashtable<Procesadores, ArrayList<Tarea>> caminoActual, int indexTarea) {
         this.cantidadEstados++;
         if (indexTarea == this.tareas.size()) { //si asigne todas las tareas
