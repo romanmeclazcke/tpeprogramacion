@@ -29,11 +29,8 @@ public class ServicioMejorDistribucionBacktracking {
             }
         }
         getBestDistribution(caminoActual, 0);
-
         return new Resultado(this.mejor, this.tiempoMejor, this.cantidadEstados);
     }
-
-
 
     private void getBestDistribution(Hashtable<Procesadores, ArrayList<Tarea>> caminoActual, int indexTarea) {
         this.cantidadEstados++;
@@ -78,7 +75,7 @@ public class ServicioMejorDistribucionBacktracking {
             int contadortiempo=0;
             if (!p.getEsta_regriferado()) {
                 contadortiempo= p.getTiempo_ejecucion();                    
-                if(contadortiempo+t.getTiempo_ejecucion()<this.limiteTiempoRefrigerados &&contador<=2){
+                if(contadortiempo+t.getTiempo_ejecucion()<=this.limiteTiempoRefrigerados &&contador<=2){ //agrege menor o = para que la acepte en caso de que sea igual
                     return true;
                 }else{
                     return false;

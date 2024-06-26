@@ -24,7 +24,6 @@ public class ServicioMejorDistribucionGreedy {
 
         this.limiteTiempoRefrigerados = x;
         Hashtable<Procesadores, ArrayList<Tarea>> result= this.getCopiaMejor(getBestDistribution(caminoActual, this.tareas));
-
         return new Resultado(result, this.tiempoActual, this.cantidadEstados*this.procesadores.size());
         
     }
@@ -62,7 +61,7 @@ public class ServicioMejorDistribucionGreedy {
             int contadortiempo = 0;
             if (!p.getEsta_regriferado()) {
                     contador=p.getTiempo_ejecucion();
-                    if (contadortiempo + t.getTiempo_ejecucion() < this.limiteTiempoRefrigerados && contador < 2) {
+                    if (contadortiempo + t.getTiempo_ejecucion() <= this.limiteTiempoRefrigerados && contador < 2) {//agrege menor o igual para que acepte en caso de que sea el mismo valor
                         aux.add(p);
                     }
             }else if(contador<2){

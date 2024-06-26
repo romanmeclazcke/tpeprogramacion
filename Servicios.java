@@ -73,7 +73,7 @@ public class Servicios {
 	public List<Tarea> servicio3(int prioridadInferior, int prioridadSuperior) {
 		List<Tarea> aux = new ArrayList<Tarea>();
 		for (Tarea t : this.tareas) {
-			if (t.getPrioridad() > prioridadInferior && t.getPrioridad() < prioridadSuperior) {
+			if (t.getPrioridad() >= prioridadInferior && t.getPrioridad() <= prioridadSuperior) { //Arreglo de > < a >= <=
 				aux.add(t);
 			}
 		}

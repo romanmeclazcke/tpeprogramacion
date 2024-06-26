@@ -8,18 +8,15 @@ public class Main {
 
 		ServicioMejorDistribucionGreedy sericioGreedy= new ServicioMejorDistribucionGreedy(servicios.getTareas(), servicios.getProcesadores());
 
-		Resultado resultBacktracking = servicioBacktracking.getBestDistribution(200);
+		//Resultado resultBacktracking = servicioBacktracking.getBestDistribution(80);
 
-		Resultado resultGreedy = sericioGreedy.getBestDistribution(200);
-
-		System.out.println(resultBacktracking.getCantidadEstados());
-		System.out.println(resultBacktracking.getResultado());
-		System.out.println(resultBacktracking.getTiempo());
+		Resultado resultGreedy = sericioGreedy.getBestDistribution(80);
 		
 
 		
-		System.out.println(resultGreedy.getCantidadEstados());
-		System.out.println(resultGreedy.getResultado());
-		System.out.println(resultGreedy.getTiempo());
+		System.out.println(resultGreedy);
+
+		
+
 	}
 } 
