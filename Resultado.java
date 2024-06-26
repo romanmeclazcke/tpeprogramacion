@@ -39,7 +39,7 @@ public void setCantidadEstados(int cantidadEstados) {
 @Override
 public String toString(){
     if (!this.resultado.isEmpty()) {
-        return "Cantidad de estados generador: "+this.cantidadEstados +
+        return "Cantidad de estados generador: "+this.cantidadEstados+
          "\n Solucion: "+ this.resultado+
          "\n Tiempo de ejecucion: "+this.tiempo;
     }else{
