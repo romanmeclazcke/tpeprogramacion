@@ -11,7 +11,7 @@ public class Main {
 
 		Resultado resultGreedy = sericioGreedy.getBestDistribution(100);
 		
-
+		System.out.println(resultGreedy);
 		System.out.println(resultBacktracking);
 
 		
