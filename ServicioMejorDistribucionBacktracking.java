@@ -61,8 +61,10 @@ public class ServicioMejorDistribucionBacktracking {
                         this.tiempoActual = procesador.getTiempo_ejecucion();
                     }
 
-                    getBestDistribution(caminoActual, indexTarea + 1); //recusion acutalizando el indice de la tarea
-
+                    if(this.tiempoActual < this.tiempoMejor){ //poda
+                        getBestDistribution(caminoActual, indexTarea + 1); //recusion acutalizando el indice de la tarea
+                    }
+                    
                     caminoActual.get(procesador).remove(t); //revierto los cambios al volver de la recusion
                     procesador.setTiempo_ejecucion(procesador.getTiempo_ejecucion() - t.getTiempo_ejecucion()); //resto el tiempo de la tarea que habia agregado al procesador
                     this.tiempoActual = tiempoPrevio; // restauro el tiempo actual luego de volver del llamado recursivo
