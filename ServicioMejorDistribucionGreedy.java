@@ -71,8 +71,8 @@ public class ServicioMejorDistribucionGreedy {
 
             int contadortiempo = 0;
             if (!p.getEsta_regriferado()) {
-                    contador=p.getTiempo_ejecucion();
-                    if (contadortiempo + t.getTiempo_ejecucion() <= this.limiteTiempoRefrigerados && contador < 2) {//agrege menor o igual para que acepte en caso de que sea el mismo valor
+                    contadortiempo=p.getTiempo_ejecucion()+t.getTiempo_ejecucion() ;
+                    if (contadortiempo<= this.limiteTiempoRefrigerados && contador < 2) {//agrege menor o igual para que acepte en caso de que sea el mismo valor
                         aux.add(p);
                     }
             }else if(contador<2){
