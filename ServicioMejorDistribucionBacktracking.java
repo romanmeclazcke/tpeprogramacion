@@ -77,27 +77,28 @@ public class ServicioMejorDistribucionBacktracking {
 // este método fue pensado para tomar aquellos estados del backtracking que sean solución, es decir que cumplan los criterios
 // pactados sobre el tiempo máximo que pueden soportar los procesadores no refrigerados y cuáles están en condiciones de aceptar
 // una tarea crítica
-    public boolean sePuede(Procesadores p, Tarea t, Hashtable<Procesadores, ArrayList<Tarea>> caminoActual){ //funcion que retorna la posibilidad de insetar una tarea en un procesador dadas ciertas condiciens
-        ArrayList<Tarea> tareasProcesador = caminoActual.get(p);  
-        int contador=0;
-        for (Tarea tarea : tareasProcesador) {
-            if (tarea.getEs_critica()) {
-                contador++;
-            }
+public boolean sePuede(Procesadores p, Tarea t, Hashtable<Procesadores, ArrayList<Tarea>> caminoActual){ //funcion que retorna la posibilidad de insetar una tarea en un procesador dadas ciertas condiciens
+    ArrayList<Tarea> tareasProcesador = caminoActual.get(p);  
+    int contador=0;
+    for (Tarea tarea : tareasProcesador) {
+        if (tarea.getEs_critica()) {
+            contador++;
         }
-        if(contador < 2){
-            int contadortiempo=0;
-            if (!p.getEsta_regriferado()) {
-                contadortiempo= p.getTiempo_ejecucion();                    
-                if(contadortiempo+t.getTiempo_ejecucion()<=this.limiteTiempoRefrigerados &&contador<=2){ //agrege menor o = para que la acepte en caso de que sea igual
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-            return true;
-        }
+    }
+    if(contador >=2 && t.getEs_critica()){
         return false;
+    }else{
+        int contadortiempo=0;
+        if (!p.getEsta_regriferado()) {
+            contadortiempo= p.getTiempo_ejecucion()+t.getTiempo_ejecucion();                    
+            if(contadortiempo<=this.limiteTiempoRefrigerados){ //agrege menor o = para que la acepte en caso de que sea igual
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 // finalmente, con este método lo que hicimos fue copiar nuestra mejor solución en un nuevo hashtable para poder retornarlo

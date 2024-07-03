@@ -7,9 +7,9 @@ public class Main {
 
 		ServicioMejorDistribucionGreedy sericioGreedy= new ServicioMejorDistribucionGreedy(servicios.getTareas(), servicios.getProcesadores());
 
-		Resultado resultBacktracking = servicioBacktracking.getBestDistribution(200);
+		Resultado resultBacktracking = servicioBacktracking.getBestDistribution(80);
 
-		Resultado resultGreedy = sericioGreedy.getBestDistribution(100);
+		Resultado resultGreedy = sericioGreedy.getBestDistribution(80);
 		
 		System.out.println(resultGreedy);
 		System.out.println(resultBacktracking);
